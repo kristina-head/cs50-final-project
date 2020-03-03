@@ -1,10 +1,10 @@
 package com.kristina_head.cs50.api;
 
 public class Food {
+    private static final int AMOUNT = 100;
     private long id;
     private String name;
     private int calories;
-    private static final int amount = 100;
     private String unit;
 
     public Food(String name, int calories, String unit) {
@@ -22,7 +22,7 @@ public class Food {
     }
 
     public static int getAmount() {
-        return amount;
+        return AMOUNT;
     }
 
     public String getUnit() {
