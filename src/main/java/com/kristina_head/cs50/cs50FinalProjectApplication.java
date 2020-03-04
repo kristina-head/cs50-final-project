@@ -1,5 +1,6 @@
 package com.kristina_head.cs50;
 
+import com.kristina_head.cs50.resources.FoodResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -18,7 +19,7 @@ public class cs50FinalProjectApplication extends Application<cs50FinalProjectCon
     @Override
     public void run(final cs50FinalProjectConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
+        FoodResource foodResource = new FoodResource();
+        environment.jersey().register(foodResource);
     }
-
 }
