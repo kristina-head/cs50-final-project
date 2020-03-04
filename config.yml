@@ -3,8 +3,6 @@ logging:
   loggers:
     com.kristina-head: DEBUG
 
-allowedMethods: GET
-
 server:
   rootPath: /api/v1/*
 
