@@ -1,5 +1,9 @@
 package com.kristina_head.cs50.api;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"id", "name", "calories", "amount", "unit"})
+
 public class Food {
     private static final int AMOUNT = 100;
     private long id;
@@ -7,10 +11,15 @@ public class Food {
     private int calories;
     private String unit;
 
-    public Food(String name, int calories, String unit) {
+    public Food(long id, String name, int calories, String unit) {
+        this.id = id;
         this.name = name;
         this.calories = calories;
         this.unit = unit;
+    }
+
+    public long getId() {
+        return this.id;
     }
 
     public String getName() {
@@ -21,7 +30,7 @@ public class Food {
         return this.calories;
     }
 
-    public static int getAmount() {
+    public int getAmount() {
         return AMOUNT;
     }
 

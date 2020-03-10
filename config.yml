@@ -4,5 +4,6 @@ logging:
     com.kristina-head: DEBUG
 
 server:
-  rootPath: /api/v1/*
-
+  rootPath: /api/v1
+  allowedMethods:
+  - GET
