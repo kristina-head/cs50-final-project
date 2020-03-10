@@ -38,4 +38,3 @@ public class Food {
         return this.unit;
     }
 }
-
