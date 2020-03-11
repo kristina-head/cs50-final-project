@@ -2,19 +2,14 @@ package com.kristina_head.cs50.resources;
 
 import com.kristina_head.cs50.api.Food;
 import com.kristina_head.cs50.db.SQLiteConnection;
-import io.dropwizard.jersey.params.LongParam;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +18,8 @@ import java.util.List;
 public class FoodResource {
 
     @GET
-    @Path("/limit={limit}&offset={offset}")
-    public Response fetchAllFood(@PathParam("limit") int limit, @PathParam("offset") int offset) {
+    @Path("/all")
+    public Response fetchAllFood(@QueryParam("limit") int limit, @QueryParam("offset") int offset) {
         String query = "SELECT * FROM food ORDER BY name ASC LIMIT ? OFFSET ?";
         Response response;
         try (Connection connection = SQLiteConnection.getConnection();
