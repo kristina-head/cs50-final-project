@@ -2,6 +2,7 @@ package com.kristina_head.cs50.resources;
 
 import com.kristina_head.cs50.api.Food;
 import com.kristina_head.cs50.db.SQLiteConnection;
+import io.dropwizard.jersey.params.LongParam;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,24 +23,28 @@ import java.util.List;
 public class FoodResource {
 
     @GET
-    @Path("/all")
-    public Response fetchAllFood() {
-        String query = "SELECT * FROM food";
+    @Path("/limit={limit}&offset={offset}")
+    public Response fetchAllFood(@PathParam("limit") int limit, @PathParam("offset") int offset) {
+        String query = "SELECT * FROM food ORDER BY name ASC LIMIT ? OFFSET ?";
         Response response;
         try (Connection connection = SQLiteConnection.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
-            List<Food> results = new ArrayList<>();
-            while (resultSet.next()) {
-                long id = resultSet.getLong("id");
-                String name = resultSet.getString("name");
-                int calories = resultSet.getInt("calories");
-                String unit = resultSet.getString("unit");
-                Food food = new Food(id, name, calories, unit);
-                results.add(food);
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                List<Food> results = new ArrayList<>();
+                while (resultSet.next()) {
+                    long id = resultSet.getLong("id");
+                    String name = resultSet.getString("name");
+                    int calories = resultSet.getInt("calories");
+                    String unit = resultSet.getString("unit");
+                    Food food = new Food(id, name, calories, unit);
+                    results.add(food);
+                }
+                response = Response.ok(results).build();
             }
-            response = Response.ok(results).build();
         } catch (SQLException exception) {
             exception.printStackTrace();
             response = Response.serverError().build();
