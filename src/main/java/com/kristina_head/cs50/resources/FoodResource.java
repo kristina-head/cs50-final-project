@@ -24,7 +24,8 @@ public class FoodResource {
 
     @GET
     @Path("/all")
-    public Response fetchAllFood(@DefaultValue("20") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
+    public Response fetchAllFood(@DefaultValue("20") @QueryParam("limit") int limit,
+                                 @DefaultValue("0") @QueryParam("offset") int offset) {
         String query = "SELECT * FROM macro ORDER BY name ASC LIMIT ? OFFSET ?";
         Response response;
         try (Connection connection = SQLiteConnection.getConnection();
