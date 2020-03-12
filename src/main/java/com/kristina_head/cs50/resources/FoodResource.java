@@ -47,7 +47,8 @@ public class FoodResource {
                     float fiber = resultSet.getFloat("fiber");
                     float sugar = resultSet.getFloat("sugar");
                     Food.Carbohydrate carbohydrate = new Food.Carbohydrate(fiber, sugar);
-                    Food food = new Food(id, name, unit, calories, fat, carbohydrate);
+                    float protein = resultSet.getFloat("protein");
+                    Food food = new Food(id, name, unit, calories, fat, carbohydrate, protein);
                     results.add(food);
                 }
                 response = Response.ok(results).build();
@@ -82,7 +83,8 @@ public class FoodResource {
                     float fiber = resultSet.getFloat("fiber");
                     float sugar = resultSet.getFloat("sugar");
                     Food.Carbohydrate carbohydrate = new Food.Carbohydrate(fiber, sugar);
-                    Food food = new Food(id, name, unit, calories, fat, carbohydrate);
+                    float protein = resultSet.getFloat("protein");
+                    Food food = new Food(id, name, unit, calories, fat, carbohydrate, protein);
                     results.add(food);
                 }
                 response = Response.ok(results).build();

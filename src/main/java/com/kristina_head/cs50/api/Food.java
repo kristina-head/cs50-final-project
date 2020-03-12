@@ -2,7 +2,7 @@ package com.kristina_head.cs50.api;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({"id", "name", "amount", "unit", "calories", "fat"})
+@JsonPropertyOrder({"id", "name", "amount", "unit", "calories", "fat", "carbohydrate", "protein"})
 public class Food {
 
     @JsonPropertyOrder({"totalFat", "saturatedFat", "polyunsaturatedFat", "monounsaturatedFat"})
@@ -64,14 +64,16 @@ public class Food {
     private String unit;
     private Fat fat;
     private Carbohydrate carbohydrate;
+    private float protein;
 
-    public Food(long id, String name, String unit, float calories, Fat fat, Carbohydrate carbohydrate) {
+    public Food(long id, String name, String unit, float calories, Fat fat, Carbohydrate carbohydrate, float protein) {
         this.id = id;
         this.name = name;
         this.unit = unit;
         this.calories = calories;
         this.fat = fat;
         this.carbohydrate = carbohydrate;
+        this.protein = protein;
     }
 
     public long getId() {
@@ -100,5 +102,9 @@ public class Food {
 
     public Carbohydrate getCarbohydrate() {
         return this.carbohydrate;
+    }
+
+    public float getProtein() {
+        return this.protein;
     }
 }
