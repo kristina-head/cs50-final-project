@@ -37,19 +37,7 @@ public class FoodResource {
                 List<Food> results = new ArrayList<>();
                 while (resultSet.next()) {
                     long id = resultSet.getLong("id");
-                    String name = resultSet.getString("name");
-                    String unit = resultSet.getString("unit");
-                    int calories = resultSet.getInt("calories");
-                    float saturatedFat = resultSet.getFloat("saturated_fat");
-                    float polyunsaturatedFat = resultSet.getFloat("polyunsaturated_fat");
-                    float monounsaturatedFat = resultSet.getFloat("monounsaturated_fat");
-                    Food.Fat fat = new Food.Fat(saturatedFat, polyunsaturatedFat, monounsaturatedFat);
-                    float fiber = resultSet.getFloat("fiber");
-                    float sugar = resultSet.getFloat("sugar");
-                    Food.Carbohydrate carbohydrate = new Food.Carbohydrate(fiber, sugar);
-                    float protein = resultSet.getFloat("protein");
-                    Food food = new Food(id, name, unit, calories, fat, carbohydrate, protein);
-                    results.add(food);
+                    results.add(setFood(resultSet, id));
                 }
                 response = Response.ok(results).build();
             }
@@ -73,19 +61,7 @@ public class FoodResource {
             try (ResultSet resultSet = statement.executeQuery()) {
                 List<Food> results = new ArrayList<>();
                 while (resultSet.next()) {
-                    String name = resultSet.getString("name");
-                    String unit = resultSet.getString("unit");
-                    int calories = resultSet.getInt("calories");
-                    float saturatedFat = resultSet.getFloat("saturated_fat");
-                    float polyunsaturatedFat = resultSet.getFloat("polyunsaturated_fat");
-                    float monounsaturatedFat = resultSet.getFloat("monounsaturated_fat");
-                    Food.Fat fat = new Food.Fat(saturatedFat, polyunsaturatedFat, monounsaturatedFat);
-                    float fiber = resultSet.getFloat("fiber");
-                    float sugar = resultSet.getFloat("sugar");
-                    Food.Carbohydrate carbohydrate = new Food.Carbohydrate(fiber, sugar);
-                    float protein = resultSet.getFloat("protein");
-                    Food food = new Food(id, name, unit, calories, fat, carbohydrate, protein);
-                    results.add(food);
+                    results.add(setFood(resultSet, id));
                 }
                 response = Response.ok(results).build();
             }
@@ -94,6 +70,21 @@ public class FoodResource {
             response = Response.serverError().build();
         }
         return response;
+    }
+
+    private Food setFood(ResultSet resultSet, long id) throws SQLException {
+        String name = resultSet.getString("name");
+        String unit = resultSet.getString("unit");
+        int calories = resultSet.getInt("calories");
+        float saturatedFat = resultSet.getFloat("saturated_fat");
+        float polyunsaturatedFat = resultSet.getFloat("polyunsaturated_fat");
+        float monounsaturatedFat = resultSet.getFloat("monounsaturated_fat");
+        Food.Fat fat = new Food.Fat(saturatedFat, polyunsaturatedFat, monounsaturatedFat);
+        float fiber = resultSet.getFloat("fiber");
+        float sugar = resultSet.getFloat("sugar");
+        Food.Carbohydrate carbohydrate = new Food.Carbohydrate(fiber, sugar);
+        float protein = resultSet.getFloat("protein");
+        return new Food(id, name, unit, calories, fat, carbohydrate, protein);
     }
 }
 
