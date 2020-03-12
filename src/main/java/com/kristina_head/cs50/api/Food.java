@@ -34,19 +34,44 @@ public class Food {
         }
     }
 
+    @JsonPropertyOrder({"totalCarbohydrate", "fiber", "sugar"})
+    public static class Carbohydrate {
+        private float fiber;
+        private float sugar;
+
+        public Carbohydrate(float fiber, float sugar) {
+            this.fiber = fiber;
+            this.sugar = sugar;
+        }
+
+        public float getTotalCarbohydrate() {
+            return this.fiber + this.sugar;
+        }
+
+        public float getFiber() {
+            return this.fiber;
+        }
+
+        public float getSugar() {
+            return this.sugar;
+        }
+    }
+
     private static final int AMOUNT = 100;
     private long id;
     private String name;
     private float calories;
     private String unit;
     private Fat fat;
+    private Carbohydrate carbohydrate;
 
-    public Food(long id, String name, String unit, float calories, Fat fat) {
+    public Food(long id, String name, String unit, float calories, Fat fat, Carbohydrate carbohydrate) {
         this.id = id;
         this.name = name;
         this.unit = unit;
         this.calories = calories;
         this.fat = fat;
+        this.carbohydrate = carbohydrate;
     }
 
     public long getId() {
@@ -71,5 +96,9 @@ public class Food {
 
     public Fat getFat() {
         return this.fat;
+    }
+
+    public Carbohydrate getCarbohydrate() {
+        return this.carbohydrate;
     }
 }

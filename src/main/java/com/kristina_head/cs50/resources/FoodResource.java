@@ -3,7 +3,12 @@ package com.kristina_head.cs50.resources;
 import com.kristina_head.cs50.api.Food;
 import com.kristina_head.cs50.db.SQLiteConnection;
 
-import javax.ws.rs.*;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.Connection;
@@ -39,7 +44,10 @@ public class FoodResource {
                     float polyunsaturatedFat = resultSet.getFloat("polyunsaturated_fat");
                     float monounsaturatedFat = resultSet.getFloat("monounsaturated_fat");
                     Food.Fat fat = new Food.Fat(saturatedFat, polyunsaturatedFat, monounsaturatedFat);
-                    Food food = new Food(id, name, unit, calories, fat);
+                    float fiber = resultSet.getFloat("fiber");
+                    float sugar = resultSet.getFloat("sugar");
+                    Food.Carbohydrate carbohydrate = new Food.Carbohydrate(fiber, sugar);
+                    Food food = new Food(id, name, unit, calories, fat, carbohydrate);
                     results.add(food);
                 }
                 response = Response.ok(results).build();
@@ -71,7 +79,10 @@ public class FoodResource {
                     float polyunsaturatedFat = resultSet.getFloat("polyunsaturated_fat");
                     float monounsaturatedFat = resultSet.getFloat("monounsaturated_fat");
                     Food.Fat fat = new Food.Fat(saturatedFat, polyunsaturatedFat, monounsaturatedFat);
-                    Food food = new Food(id, name, unit, calories, fat);
+                    float fiber = resultSet.getFloat("fiber");
+                    float sugar = resultSet.getFloat("sugar");
+                    Food.Carbohydrate carbohydrate = new Food.Carbohydrate(fiber, sugar);
+                    Food food = new Food(id, name, unit, calories, fat, carbohydrate);
                     results.add(food);
                 }
                 response = Response.ok(results).build();
