@@ -2,6 +2,7 @@ package com.kristina_head.cs50.api;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@JsonPropertyOrder({"fat", "carbohydrate", "protein", "unit"})
 public class Macronutrient {
     private static final String UNIT = "g";
     private Fat fat;
@@ -72,7 +73,7 @@ public class Macronutrient {
         this.protein = protein;
     }
 
-    public static String getUNIT() {
+    public String getUNIT() {
         return UNIT;
     }
 
