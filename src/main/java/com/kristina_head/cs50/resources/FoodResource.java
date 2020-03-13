@@ -28,11 +28,11 @@ public class FoodResource {
     @Path("/all")
     public Response fetchAllFood(@DefaultValue("20") @QueryParam("limit") int limit,
                                  @DefaultValue("0") @QueryParam("offset") int offset) {
-        String query = "SELECT * FROM food LIMIT ? OFFSET ?";
+        String foodQuery = "SELECT * FROM food LIMIT ? OFFSET ?";
         Response response;
 
         try (Connection connection = SQLiteConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(foodQuery)) {
             statement.setInt(1, limit);
             statement.setInt(2, offset);
 
@@ -50,6 +50,50 @@ public class FoodResource {
         }
         return response;
     }
+
+    @GET
+    @Path("/all/macronutrients")
+    public Response fetchAllMacronutrients(@DefaultValue("20") @QueryParam("limit") int limit,
+                                           @DefaultValue("0") @QueryParam("offset") int offset) {
+        String foodQuery = "SELECT * FROM food LIMIT ? OFFSET ?";
+        Response response;
+
+        try (Connection connection = SQLiteConnection.getConnection()) {
+            List<Food> results = new ArrayList<>();
+
+            try (PreparedStatement statement = connection.prepareStatement(foodQuery)) {
+                statement.setInt(1, limit);
+                statement.setInt(2, offset);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        long id = resultSet.getLong("id");
+                        results.add(resultSetToFood(resultSet, id));
+                    }
+                }
+                for (Food food : results) {
+                    String macronutrientsQuery = "SELECT saturated_fat, polyunsaturated_fat, monounsaturated_fat, cholesterol, " +
+                            "fiber, sugar, protein FROM macronutrients WHERE food_id = " + food.getId();
+
+                    try (PreparedStatement statement2 = connection.prepareStatement(macronutrientsQuery);
+                         ResultSet resultSet = statement2.executeQuery()) {
+
+                        resultSet.next();
+                        food.setMacronutrient(resultSetToMacronutrient(resultSet));
+                    }
+                }
+                response = Response.ok(results).build();
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            response = Response.serverError().build();
+        }
+        return response;
+    }
+
+    @GET
+    @Path("/all/macronutrients/micronutrients")
+    // TODO
 
     @GET
     @Path("/{id}")
