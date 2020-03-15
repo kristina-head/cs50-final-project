@@ -4,8 +4,10 @@ import com.kristina_head.cs50.api.Food;
 import com.kristina_head.cs50.api.Macronutrients;
 import com.kristina_head.cs50.api.Micronutrients;
 import com.kristina_head.cs50.db.FoodDAO;
+import com.kristina_head.cs50.db.MacronutrientsDAO;
 import com.kristina_head.cs50.db.SQLiteConnection;
 
+import javax.crypto.Mac;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -45,35 +47,16 @@ public class FoodResource {
     @Path("/all/macronutrients")
     public Response fetchAllMacronutrients(@DefaultValue("20") @QueryParam("limit") int limit,
                                            @DefaultValue("0") @QueryParam("offset") int offset) {
-        String foodQuery = "SELECT * FROM food LIMIT ? OFFSET ?";
         Response response;
+        try {
+            Collection<Food> results = FoodDAO.fetchAll(limit, offset);
 
-        try (Connection connection = SQLiteConnection.getConnection()) {
-            List<Food> results = new ArrayList<>();
-
-            try (PreparedStatement statement = connection.prepareStatement(foodQuery)) {
-                statement.setInt(1, limit);
-                statement.setInt(2, offset);
-
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        long id = resultSet.getLong("id");
-                        results.add(resultSetToFood(resultSet, id));
-                    }
-                }
-                for (Food food : results) {
-                    String macronutrientsQuery = "SELECT saturated_fat, polyunsaturated_fat, monounsaturated_fat, cholesterol, " +
-                            "fiber, sugar, protein FROM macronutrients WHERE food_id = " + food.getId();
-
-                    try (PreparedStatement statement2 = connection.prepareStatement(macronutrientsQuery);
-                         ResultSet resultSet = statement2.executeQuery()) {
-
-                        resultSet.next();
-                        food.setMacronutrients(resultSetToMacronutrients(resultSet));
-                    }
-                }
-                response = Response.ok(results).build();
+            for (Food food : results) {
+                Macronutrients macronutrients = MacronutrientsDAO.fetchByFoodId(food.getId());
+                food.setMacronutrients(macronutrients);
             }
+
+            response = Response.ok(results).build();
         } catch (SQLException exception) {
             exception.printStackTrace();
             response = Response.serverError().build();
@@ -102,31 +85,11 @@ public class FoodResource {
     @GET
     @Path("/{id}/macronutrients")
     public Response fetchMacronutrientsById(@PathParam("id") long id) {
-        String foodQuery = "SELECT * FROM food WHERE id = ?";
         Response response;
-
-        try (Connection connection = SQLiteConnection.getConnection()) {
-            Food food = null;
-
-            try (PreparedStatement statement = connection.prepareStatement(foodQuery)) {
-                statement.setLong(1, id);
-
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    resultSet.next();
-                    food = resultSetToFood(resultSet, id);
-                }
-            }
-            String macronutrientsQuery = "SELECT saturated_fat, polyunsaturated_fat, monounsaturated_fat, cholesterol, " +
-                                                "fiber, sugar, protein FROM macronutrients WHERE food_id = ?";
-
-            try (PreparedStatement statement = connection.prepareStatement(macronutrientsQuery)) {
-                statement.setLong(1, id);
-
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    resultSet.next();
-                    food.setMacronutrients(resultSetToMacronutrients(resultSet));
-                }
-            }
+        try {
+            Food food = FoodDAO.fetchById(id);
+            Macronutrients macronutrients = MacronutrientsDAO.fetchByFoodId(id);
+            food.setMacronutrients(macronutrients);
             response = Response.ok(food).build();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -182,18 +145,7 @@ public class FoodResource {
         return response;
     }
 
-    private Macronutrients resultSetToMacronutrients(ResultSet resultSet) throws SQLException {
-        float saturatedFat = resultSet.getFloat("saturated_fat");
-        float polyunsaturatedFat = resultSet.getFloat("polyunsaturated_fat");
-        float monounsaturatedFat = resultSet.getFloat("monounsaturated_fat");
-        float cholesterol = resultSet.getFloat("cholesterol");
-        Macronutrients.Fat fat = new Macronutrients.Fat(saturatedFat, polyunsaturatedFat, monounsaturatedFat, cholesterol);
-        float fiber = resultSet.getFloat("fiber");
-        float sugar = resultSet.getFloat("sugar");
-        Macronutrients.Carbohydrate carbohydrate = new Macronutrients.Carbohydrate(fiber, sugar);
-        float protein = resultSet.getFloat("protein");
-        return new Macronutrients(fat, carbohydrate, protein);
-    }
+
 
     private Micronutrients resultSetToMicronutrients(ResultSet resultSet) throws SQLException {
         float vitaminA = resultSet.getFloat("vitamin_a");
