@@ -6,13 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 
 public class MacronutrientsDAO {
     public static Macronutrients fetchByFoodId(long id) throws SQLException {
-        String macronutrientsQuery =
-                "SELECT saturated_fat, polyunsaturated_fat, monounsaturated_fat, cholesterol, " +
-                       "fiber, sugar, protein FROM macronutrients WHERE food_id = ?";
+        String macronutrientsQuery = "SELECT saturated_fat, polyunsaturated_fat, monounsaturated_fat, cholesterol, " +
+                                            "fiber, sugar, protein " +
+                                     "FROM macronutrients " +
+                                     "WHERE food_id = ?";
 
         try (Connection connection = SQLiteConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(macronutrientsQuery)) {
