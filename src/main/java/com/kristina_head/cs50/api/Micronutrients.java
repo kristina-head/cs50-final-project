@@ -3,7 +3,7 @@ package com.kristina_head.cs50.api;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"vitaminA", "vitaminC", "vitaminD", "calcium", "iron", "potassium", "sodium", "unit"})
-public class Micronutrient {
+public class Micronutrients {
     private static final String UNIT = "mg";
     private float vitaminA;
     private float vitaminC;
@@ -13,7 +13,7 @@ public class Micronutrient {
     private float potassium;
     private float sodium;
 
-    public Micronutrient(float vitaminA, float vitaminC, float vitaminD,
+    public Micronutrients(float vitaminA, float vitaminC, float vitaminD,
                          float calcium, float iron, float potassium, float sodium) {
         this.vitaminA = vitaminA;
         this.vitaminC = vitaminC;

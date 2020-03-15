@@ -1,8 +1,8 @@
 package com.kristina_head.cs50.resources;
 
 import com.kristina_head.cs50.api.Food;
-import com.kristina_head.cs50.api.Macronutrient;
-import com.kristina_head.cs50.api.Micronutrient;
+import com.kristina_head.cs50.api.Macronutrients;
+import com.kristina_head.cs50.api.Micronutrients;
 import com.kristina_head.cs50.db.SQLiteConnection;
 
 import javax.ws.rs.DefaultValue;
@@ -79,7 +79,7 @@ public class FoodResource {
                          ResultSet resultSet = statement2.executeQuery()) {
 
                         resultSet.next();
-                        food.setMacronutrient(resultSetToMacronutrient(resultSet));
+                        food.setMacronutrients(resultSetToMacronutrients(resultSet));
                     }
                 }
                 response = Response.ok(results).build();
@@ -91,9 +91,9 @@ public class FoodResource {
         return response;
     }
 
-    @GET
-    @Path("/all/macronutrients/micronutrients")
-    // TODO
+//    @GET
+//    @Path("/all/macronutrients/micronutrients")
+//    TODO
 
     @GET
     @Path("/{id}")
@@ -142,7 +142,7 @@ public class FoodResource {
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     resultSet.next();
-                    food.setMacronutrient(resultSetToMacronutrient(resultSet));
+                    food.setMacronutrients(resultSetToMacronutrients(resultSet));
                 }
             }
             response = Response.ok(food).build();
@@ -178,7 +178,7 @@ public class FoodResource {
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     resultSet.next();
-                    food.setMacronutrient(resultSetToMacronutrient(resultSet));
+                    food.setMacronutrients(resultSetToMacronutrients(resultSet));
                 }
             }
             String micronutrientsQuery = "SELECT vitamin_a, vitamin_c, vitamin_d, calcium, iron, potassium, sodium " +
@@ -189,7 +189,7 @@ public class FoodResource {
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     resultSet.next();
-                    food.setMicronutrient(resultSetToMicronutrient(resultSet));
+                    food.setMicronutrients(resultSetToMicronutrients(resultSet));
                 }
             }
             response = Response.ok(food).build();
@@ -207,20 +207,20 @@ public class FoodResource {
         return new Food(id, name, unit, calories);
     }
 
-    private Macronutrient resultSetToMacronutrient(ResultSet resultSet) throws SQLException {
+    private Macronutrients resultSetToMacronutrients(ResultSet resultSet) throws SQLException {
         float saturatedFat = resultSet.getFloat("saturated_fat");
         float polyunsaturatedFat = resultSet.getFloat("polyunsaturated_fat");
         float monounsaturatedFat = resultSet.getFloat("monounsaturated_fat");
         float cholesterol = resultSet.getFloat("cholesterol");
-        Macronutrient.Fat fat = new Macronutrient.Fat(saturatedFat, polyunsaturatedFat, monounsaturatedFat, cholesterol);
+        Macronutrients.Fat fat = new Macronutrients.Fat(saturatedFat, polyunsaturatedFat, monounsaturatedFat, cholesterol);
         float fiber = resultSet.getFloat("fiber");
         float sugar = resultSet.getFloat("sugar");
-        Macronutrient.Carbohydrate carbohydrate = new Macronutrient.Carbohydrate(fiber, sugar);
+        Macronutrients.Carbohydrate carbohydrate = new Macronutrients.Carbohydrate(fiber, sugar);
         float protein = resultSet.getFloat("protein");
-        return new Macronutrient(fat, carbohydrate, protein);
+        return new Macronutrients(fat, carbohydrate, protein);
     }
 
-    private Micronutrient resultSetToMicronutrient(ResultSet resultSet) throws SQLException {
+    private Micronutrients resultSetToMicronutrients(ResultSet resultSet) throws SQLException {
         float vitaminA = resultSet.getFloat("vitamin_a");
         float vitaminC = resultSet.getFloat("vitamin_c");
         float vitaminD = resultSet.getFloat("vitamin_d");
@@ -228,7 +228,7 @@ public class FoodResource {
         float iron = resultSet.getFloat("iron");
         float potassium = resultSet.getFloat("potassium");
         float sodium = resultSet.getFloat("sodium");
-        return new Micronutrient(vitaminA, vitaminC, vitaminD, calcium, iron, potassium, sodium);
+        return new Micronutrients(vitaminA, vitaminC, vitaminD, calcium, iron, potassium, sodium);
     }
 }
 

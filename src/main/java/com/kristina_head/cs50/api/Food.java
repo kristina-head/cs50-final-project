@@ -9,8 +9,8 @@ public class Food {
     private String name;
     private String unit;
     private float calories;
-    private Macronutrient macronutrient;
-    private Micronutrient micronutrient;
+    private Macronutrients macronutrients;
+    private Micronutrients micronutrients;
 
     public Food(long id, String name, String unit, float calories) {
         this.id = id;
@@ -39,19 +39,19 @@ public class Food {
         return this.calories;
     }
 
-    public Macronutrient getMacronutrient() {
-        return this.macronutrient;
+    public Macronutrients getMacronutrients() {
+        return this.macronutrients;
     }
 
-    public void setMacronutrient(Macronutrient macronutrient) {
-        this.macronutrient = macronutrient;
+    public void setMacronutrients(Macronutrients macronutrients) {
+        this.macronutrients = macronutrients;
     }
 
-    public Micronutrient getMicronutrient() {
-        return this.micronutrient;
+    public Micronutrients getMicronutrients() {
+        return this.micronutrients;
     }
 
-    public void setMicronutrient(Micronutrient micronutrient) {
-        this.micronutrient = micronutrient;
+    public void setMicronutrients(Micronutrients micronutrients) {
+        this.micronutrients = micronutrients;
     }
 }
