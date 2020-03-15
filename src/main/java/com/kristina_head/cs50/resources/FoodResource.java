@@ -3,6 +3,7 @@ package com.kristina_head.cs50.resources;
 import com.kristina_head.cs50.api.Food;
 import com.kristina_head.cs50.api.Macronutrients;
 import com.kristina_head.cs50.api.Micronutrients;
+import com.kristina_head.cs50.db.FoodDAO;
 import com.kristina_head.cs50.db.SQLiteConnection;
 
 import javax.ws.rs.DefaultValue;
@@ -18,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Path("/food")
@@ -28,22 +30,10 @@ public class FoodResource {
     @Path("/all")
     public Response fetchAllFood(@DefaultValue("20") @QueryParam("limit") int limit,
                                  @DefaultValue("0") @QueryParam("offset") int offset) {
-        String foodQuery = "SELECT * FROM food LIMIT ? OFFSET ?";
         Response response;
-
-        try (Connection connection = SQLiteConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(foodQuery)) {
-            statement.setInt(1, limit);
-            statement.setInt(2, offset);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                List<Food> results = new ArrayList<>();
-                while (resultSet.next()) {
-                    long id = resultSet.getLong("id");
-                    results.add(resultSetToFood(resultSet, id));
-                }
-                response = Response.ok(results).build();
-            }
+        try {
+            Collection<Food> results = FoodDAO.fetchAll(limit, offset);
+            response = Response.ok(results).build();
         } catch (SQLException exception) {
             exception.printStackTrace();
             response = Response.serverError().build();
@@ -98,18 +88,10 @@ public class FoodResource {
     @GET
     @Path("/{id}")
     public Response fetchFoodById(@PathParam("id") long id) {
-        String query = "SELECT * FROM food WHERE id = ?";
         Response response;
-
-        try (Connection connection = SQLiteConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setLong(1, id);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                resultSet.next();
-                Food food = resultSetToFood(resultSet, id);
-                response = Response.ok(food).build();
-            }
+        try {
+            Food food = FoodDAO.fetchById(id);
+            response = Response.ok(food).build();
         } catch (SQLException exception) {
             exception.printStackTrace();
             response = Response.serverError().build();
@@ -198,13 +180,6 @@ public class FoodResource {
             response = Response.serverError().build();
         }
         return response;
-    }
-
-    private Food resultSetToFood(ResultSet resultSet, long id) throws SQLException {
-        String name = resultSet.getString("name");
-        String unit = resultSet.getString("unit");
-        int calories = resultSet.getInt("calories");
-        return new Food(id, name, unit, calories);
     }
 
     private Macronutrients resultSetToMacronutrients(ResultSet resultSet) throws SQLException {
