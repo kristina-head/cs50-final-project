@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class FoodDAO {
-    public static Collection<Food> fetchAll(int limit, int offset) throws SQLException {
-        String foodQuery = "SELECT * FROM food LIMIT ? OFFSET ?";
+    public static Collection<Food> fetchAll(int limit, int offset, String name) throws SQLException {
+        String foodQuery = "SELECT * FROM food WHERE name LIKE ? LIMIT ? OFFSET ?";
 
         try (Connection connection = SQLiteConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(foodQuery)) {
-            statement.setInt(1, limit);
-            statement.setInt(2, offset);
+            statement.setString(1, "%" + name + "%");
+            statement.setInt(2, limit);
+            statement.setInt(3, offset);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 Collection<Food> results = new ArrayList<>();

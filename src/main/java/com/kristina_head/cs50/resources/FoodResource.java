@@ -6,9 +6,7 @@ import com.kristina_head.cs50.api.Micronutrients;
 import com.kristina_head.cs50.db.FoodDAO;
 import com.kristina_head.cs50.db.MacronutrientsDAO;
 import com.kristina_head.cs50.db.MicronutrientsDAO;
-import com.kristina_head.cs50.db.SQLiteConnection;
 
-import javax.crypto.Mac;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,13 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Path("/food")
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,10 +25,11 @@ public class FoodResource {
     @GET
     @Path("/all")
     public Response fetchAllFood(@DefaultValue("20") @QueryParam("limit") int limit,
-                                 @DefaultValue("0") @QueryParam("offset") int offset) {
+                                 @DefaultValue("0") @QueryParam("offset") int offset,
+                                 @DefaultValue("%") @QueryParam("name") String name) {
         Response response;
         try {
-            Collection<Food> results = FoodDAO.fetchAll(limit, offset);
+            Collection<Food> results = FoodDAO.fetchAll(limit, offset, name);
             response = Response.ok(results).build();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -47,10 +41,11 @@ public class FoodResource {
     @GET
     @Path("/all/macronutrients")
     public Response fetchAllMacronutrients(@DefaultValue("20") @QueryParam("limit") int limit,
-                                           @DefaultValue("0") @QueryParam("offset") int offset) {
+                                           @DefaultValue("0") @QueryParam("offset") int offset,
+                                           @DefaultValue("%") @QueryParam("name") String name) {
         Response response;
         try {
-            Collection<Food> results = FoodDAO.fetchAll(limit, offset);
+            Collection<Food> results = FoodDAO.fetchAll(limit, offset, name);
 
             for (Food food : results) {
                 Macronutrients macronutrients = MacronutrientsDAO.fetchByFoodId(food.getId());
@@ -68,10 +63,11 @@ public class FoodResource {
     @GET
     @Path("/all/macronutrients/micronutrients")
     public Response fetchAllMicronutrients(@DefaultValue("20") @QueryParam("limit") int limit,
-                                           @DefaultValue("0") @QueryParam("offset") int offset) {
+                                           @DefaultValue("0") @QueryParam("offset") int offset,
+                                           @DefaultValue("%") @QueryParam("name") String name) {
         Response response;
         try {
-            Collection<Food> results = FoodDAO.fetchAll(limit, offset);
+            Collection<Food> results = FoodDAO.fetchAll(limit, offset, name);
 
             for (Food food : results) {
                 Macronutrients macronutrients = MacronutrientsDAO.fetchByFoodId(food.getId());
