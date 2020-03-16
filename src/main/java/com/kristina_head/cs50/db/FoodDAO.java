@@ -30,6 +30,10 @@ public class FoodDAO {
         }
     }
 
+    public static Collection<Food> fetchAll(int limit, int offset) throws SQLException {
+        return fetchAll(limit, offset, "%");
+    }
+
     public static Food fetchById(long id) throws SQLException {
         String query = "SELECT * FROM food WHERE id = ?";
 

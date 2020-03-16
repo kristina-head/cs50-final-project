@@ -25,11 +25,10 @@ public class FoodResource {
     @GET
     @Path("/all")
     public Response fetchAllFood(@DefaultValue("20") @QueryParam("limit") int limit,
-                                 @DefaultValue("0") @QueryParam("offset") int offset,
-                                 @DefaultValue("%") @QueryParam("name") String name) {
+                                 @DefaultValue("0") @QueryParam("offset") int offset) {
         Response response;
         try {
-            Collection<Food> results = FoodDAO.fetchAll(limit, offset, name);
+            Collection<Food> results = FoodDAO.fetchAll(limit, offset);
             response = Response.ok(results).build();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -41,11 +40,10 @@ public class FoodResource {
     @GET
     @Path("/all/macronutrients")
     public Response fetchAllMacronutrients(@DefaultValue("20") @QueryParam("limit") int limit,
-                                           @DefaultValue("0") @QueryParam("offset") int offset,
-                                           @DefaultValue("%") @QueryParam("name") String name) {
+                                           @DefaultValue("0") @QueryParam("offset") int offset) {
         Response response;
         try {
-            Collection<Food> results = FoodDAO.fetchAll(limit, offset, name);
+            Collection<Food> results = FoodDAO.fetchAll(limit, offset);
 
             for (Food food : results) {
                 Macronutrients macronutrients = MacronutrientsDAO.fetchByFoodId(food.getId());
@@ -63,11 +61,10 @@ public class FoodResource {
     @GET
     @Path("/all/macronutrients/micronutrients")
     public Response fetchAllMicronutrients(@DefaultValue("20") @QueryParam("limit") int limit,
-                                           @DefaultValue("0") @QueryParam("offset") int offset,
-                                           @DefaultValue("%") @QueryParam("name") String name) {
+                                           @DefaultValue("0") @QueryParam("offset") int offset) {
         Response response;
         try {
-            Collection<Food> results = FoodDAO.fetchAll(limit, offset, name);
+            Collection<Food> results = FoodDAO.fetchAll(limit, offset);
 
             for (Food food : results) {
                 Macronutrients macronutrients = MacronutrientsDAO.fetchByFoodId(food.getId());
@@ -125,6 +122,32 @@ public class FoodResource {
             Micronutrients micronutrients = MicronutrientsDAO.fetchByFoodId(id);
             food.setMicronutrients(micronutrients);
             response = Response.ok(food).build();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            response = Response.serverError().build();
+        }
+        return response;
+    }
+
+    @GET
+    @Path("/search")
+    public Response search(@DefaultValue("20") @QueryParam("limit") int limit,
+                           @DefaultValue("0") @QueryParam("offset") int offset,
+                           @DefaultValue("%") @QueryParam("name") String name,
+                           @DefaultValue("%") @QueryParam("macronutrient") String macronutrient,
+                           @DefaultValue("%") @QueryParam("micronutrient") String micronutrient) {
+        Response response;
+        try {
+            Collection<Food> results = FoodDAO.fetchAll(limit, offset, name);
+
+            for (Food food : results) {
+                Macronutrients macronutrients = MacronutrientsDAO.fetchByFoodId(food.getId(), macronutrient);
+                food.setMacronutrients(macronutrients);
+                Micronutrients micronutrients = MicronutrientsDAO.fetchByFoodId(food.getId(), micronutrient);
+                food.setMicronutrients(micronutrients);
+            }
+
+            response = Response.ok(results).build();
         } catch (SQLException exception) {
             exception.printStackTrace();
             response = Response.serverError().build();
