@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,17 +24,15 @@ public class MacronutrientsDAO {
         macronutrientMap.put("protein", "protein");
     }
 
-    public static Macronutrients fetchByFoodId(long id, String macronutrient) throws SQLException {
-        String macronutrientsQuery = "SELECT saturated_fat, polyunsaturated_fat, monounsaturated_fat, cholesterol, " +
+    public static Macronutrients fetchByFoodId(long id) throws SQLException {
+        String macronutrientsQuery = "SELECT food_id, saturated_fat, polyunsaturated_fat, monounsaturated_fat, cholesterol, " +
                                             "fiber, sugar, protein " +
                                      "FROM macronutrients " +
-                                     "WHERE food_id = ? " +
-                                     "ORDER BY ? DESC";
+                                     "WHERE food_id = ? ";
 
         try (Connection connection = SQLiteConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(macronutrientsQuery)) {
             statement.setLong(1, id);
-            statement.setString(2, macronutrientMap.get(macronutrient));
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 resultSet.next();
@@ -41,11 +41,30 @@ public class MacronutrientsDAO {
         }
     }
 
-    public static Macronutrients fetchByFoodId(long id) throws SQLException {
-        return fetchByFoodId(id, "%");
+    public static Collection<Macronutrients> orderByMacronutrient(String macronutrient) throws SQLException {
+        if(! macronutrientMap.containsKey(macronutrient)){
+            throw new RuntimeException("Cannot order by " + macronutrient);
+        }
+
+        String macronutrientsQuery = "SELECT * FROM macronutrients " +
+                                     "WHERE " + macronutrientMap.get(macronutrient) + " > 0 " +
+                                     "ORDER BY " + macronutrientMap.get(macronutrient) + " DESC";
+
+        try (Connection connection = SQLiteConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(macronutrientsQuery)) {
+
+            Collection<Macronutrients> results = new ArrayList<>();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    results.add(resultSetToMacronutrients(resultSet));
+                }
+                return results;
+            }
+        }
     }
 
     private static Macronutrients resultSetToMacronutrients(ResultSet resultSet) throws SQLException {
+        Long foodId = resultSet.getLong("food_id");
         float saturatedFat = resultSet.getFloat("saturated_fat");
         float polyunsaturatedFat = resultSet.getFloat("polyunsaturated_fat");
         float monounsaturatedFat = resultSet.getFloat("monounsaturated_fat");
@@ -55,6 +74,7 @@ public class MacronutrientsDAO {
         float sugar = resultSet.getFloat("sugar");
         Macronutrients.Carbohydrate carbohydrate = new Macronutrients.Carbohydrate(fiber, sugar);
         float protein = resultSet.getFloat("protein");
-        return new Macronutrients(fat, carbohydrate, protein);
+
+        return new Macronutrients(foodId, fat, carbohydrate, protein);
     }
 }

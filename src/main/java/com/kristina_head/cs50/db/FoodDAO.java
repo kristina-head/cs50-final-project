@@ -7,10 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 public class FoodDAO {
-    public static Collection<Food> fetchAll(int limit, int offset, String name) throws SQLException {
+    public static List<Food> fetchAll(int limit, int offset, String name) throws SQLException {
         String foodQuery = "SELECT * FROM food WHERE name LIKE ? LIMIT ? OFFSET ?";
 
         try (Connection connection = SQLiteConnection.getConnection();
@@ -20,7 +20,7 @@ public class FoodDAO {
             statement.setInt(3, offset);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                Collection<Food> results = new ArrayList<>();
+                List<Food> results = new ArrayList<>();
                 while (resultSet.next()) {
                     long id = resultSet.getLong("id");
                     results.add(resultSetToFood(resultSet, id));
@@ -30,7 +30,7 @@ public class FoodDAO {
         }
     }
 
-    public static Collection<Food> fetchAll(int limit, int offset) throws SQLException {
+    public static List<Food> fetchAll(int limit, int offset) throws SQLException {
         return fetchAll(limit, offset, "%");
     }
 

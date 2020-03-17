@@ -1,10 +1,12 @@
 package com.kristina_head.cs50.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"fat", "carbohydrate", "protein", "unit"})
 public class Macronutrients {
     private static final String UNIT = "g";
+    private Long foodId;
     private Fat fat;
     private Carbohydrate carbohydrate;
     private float protein;
@@ -67,14 +69,16 @@ public class Macronutrients {
         }
     }
 
-    public Macronutrients(Fat fat, Carbohydrate carbohydrate, float protein) {
+    public Macronutrients(Long foodId, Fat fat, Carbohydrate carbohydrate, float protein) {
+        this.foodId = foodId;
         this.fat = fat;
         this.carbohydrate = carbohydrate;
         this.protein = protein;
     }
 
-    public String getUNIT() {
-        return UNIT;
+    @JsonIgnore
+    public Long getFoodId() {
+        return this.foodId;
     }
 
     public Fat getFat() {
@@ -87,5 +91,9 @@ public class Macronutrients {
 
     public float getProtein() {
         return this.protein;
+    }
+
+    public String getUNIT() {
+        return UNIT;
     }
 }
