@@ -15,7 +15,6 @@ public class MicronutrientsDAO {
     static {
         micronutrientMap.put("vitamin_a", "vitamin_a");
         micronutrientMap.put("vitamin_c", "vitamin_c");
-        micronutrientMap.put("monounsaturated_fat", "monounsaturated_fat");
         micronutrientMap.put("vitamin_d", "vitamin_d");
         micronutrientMap.put("calcium", "calcium");
         micronutrientMap.put("iron", "iron");
