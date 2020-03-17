@@ -6,8 +6,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MicronutrientsDAO {
+    private static Map<String, String> micronutrientMap = new HashMap<>();
+
+    static {
+        micronutrientMap.put("vitamin_a", "vitamin_a");
+        micronutrientMap.put("vitamin_c", "vitamin_c");
+        micronutrientMap.put("monounsaturated_fat", "monounsaturated_fat");
+        micronutrientMap.put("vitamin_d", "vitamin_d");
+        micronutrientMap.put("calcium", "calcium");
+        micronutrientMap.put("iron", "iron");
+        micronutrientMap.put("potassium", "potassium");
+        micronutrientMap.put("sodium", "sodium");
+    }
+
     public static Micronutrients fetchByFoodId(long id, String micronutrient) throws SQLException {
         String micronutrientsQuery = "SELECT vitamin_a, vitamin_c, vitamin_d, calcium, iron, potassium, sodium " +
                                      "FROM micronutrients " +
@@ -17,7 +32,7 @@ public class MicronutrientsDAO {
         try (Connection connection = SQLiteConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(micronutrientsQuery)) {
             statement.setLong(1, id);
-            statement.setString(2, micronutrient);
+            statement.setString(2, micronutrientMap.get(micronutrient));
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 resultSet.next();

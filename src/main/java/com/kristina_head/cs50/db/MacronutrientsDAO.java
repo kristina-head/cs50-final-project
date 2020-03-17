@@ -1,14 +1,27 @@
 package com.kristina_head.cs50.db;
 
 import com.kristina_head.cs50.api.Macronutrients;
-import com.kristina_head.cs50.api.Micronutrients;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MacronutrientsDAO {
+    private static Map<String, String> macronutrientMap = new HashMap<>();
+
+    static {
+        macronutrientMap.put("saturated_fat", "saturated_fat");
+        macronutrientMap.put("polyunsaturated_fat", "polyunsaturated_fat");
+        macronutrientMap.put("monounsaturated_fat", "monounsaturated_fat");
+        macronutrientMap.put("cholesterol", "cholesterol");
+        macronutrientMap.put("fiber", "fiber");
+        macronutrientMap.put("sugar", "sugar");
+        macronutrientMap.put("protein", "protein");
+    }
+
     public static Macronutrients fetchByFoodId(long id, String macronutrient) throws SQLException {
         String macronutrientsQuery = "SELECT saturated_fat, polyunsaturated_fat, monounsaturated_fat, cholesterol, " +
                                             "fiber, sugar, protein " +
@@ -19,7 +32,7 @@ public class MacronutrientsDAO {
         try (Connection connection = SQLiteConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(macronutrientsQuery)) {
             statement.setLong(1, id);
-            statement.setString(2, macronutrient);
+            statement.setString(2, macronutrientMap.get(macronutrient));
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 resultSet.next();
