@@ -79,7 +79,7 @@ public class DatabaseSeed {
 
                     macronutrientsStatement.setLong(1, idValue);
                     micronutrientsStatement.setLong(1, idValue);
-                    for (int j = 2; j < 8; j++) {
+                    for (int j = 2; j <= 8; j++) {
                         macronutrientsStatement.setNull(j, java.sql.Types.REAL);
                         micronutrientsStatement.setNull(j, java.sql.Types.REAL);
                     }
@@ -102,7 +102,6 @@ public class DatabaseSeed {
                     foodStatement.executeUpdate();
                     macronutrientsStatement.executeUpdate();
                     micronutrientsStatement.executeUpdate();
-
                 } catch (SQLException exception) {
                     exception.printStackTrace();
                 }
