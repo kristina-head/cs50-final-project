@@ -41,10 +41,6 @@ public class MicronutrientsDAO {
     }
 
     public static Collection<Micronutrients> orderByMicronutrient(String micronutrient) throws SQLException {
-        if(! micronutrientMap.containsKey(micronutrient)){
-            throw new RuntimeException("Cannot order by " + micronutrient);
-        }
-
         String micronutrientsQuery = "SELECT * FROM micronutrients " +
                                      "WHERE " + micronutrientMap.get(micronutrient) + " > 0 " +
                                      "ORDER BY " + micronutrientMap.get(micronutrient) + " DESC";
