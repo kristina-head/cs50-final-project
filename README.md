@@ -676,4 +676,4 @@ Responses to /search will be paginated by a default limit of 20 and a default of
   *  sodium
 
 
-If something in the API is confusing to you, you can [email](kristina_head@icloud.com) me
+If something in the API is confusing to you, you can [email](mailto:kristina_head@icloud.com) me
