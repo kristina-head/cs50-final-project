@@ -6,6 +6,8 @@ import com.kristina_head.nutrinfo.api.Micronutrients;
 import com.kristina_head.nutrinfo.db.FoodDAO;
 import com.kristina_head.nutrinfo.db.MacronutrientsDAO;
 import com.kristina_head.nutrinfo.db.MicronutrientsDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -22,6 +24,7 @@ import java.util.Collection;
 @Path("/food")
 @Produces(MediaType.APPLICATION_JSON)
 public class FoodResource {
+    private static final Logger logger = LoggerFactory.getLogger(FoodResource.class);
 
     @GET
     @Path("/all")
@@ -32,7 +35,7 @@ public class FoodResource {
             Collection<Food> results = FoodDAO.fetchAll(limit, offset);
             response = Response.ok(results).build();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            logger.error("Something went wrong whilst fetching all food", exception);
             response = Response.serverError().build();
         }
         return response;
@@ -53,7 +56,7 @@ public class FoodResource {
 
             response = Response.ok(results).build();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            logger.error("Something went wrong whilst fetching all macronutrients", exception);
             response = Response.serverError().build();
         }
         return response;
@@ -76,7 +79,7 @@ public class FoodResource {
 
             response = Response.ok(results).build();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            logger.error("Something went wrong whilst fetching all micronutrients", exception);
             response = Response.serverError().build();
         }
         return response;
@@ -90,7 +93,7 @@ public class FoodResource {
             Food food = FoodDAO.fetchById(id);
             response = Response.ok(food).build();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            logger.error("Something went wrong whilst fetching the food by id", exception);
             response = Response.serverError().build();
         }
         return response;
@@ -106,7 +109,7 @@ public class FoodResource {
             food.setMacronutrients(macronutrients);
             response = Response.ok(food).build();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            logger.error("Something went wrong whilst fetching the macronutrients by id", exception);
             response = Response.serverError().build();
         }
         return response;
@@ -124,7 +127,7 @@ public class FoodResource {
             food.setMicronutrients(micronutrients);
             response = Response.ok(food).build();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            logger.error("Something went wrong whilst fetching the micronutrients by id", exception);
             response = Response.serverError().build();
         }
         return response;
@@ -147,7 +150,7 @@ public class FoodResource {
             }
             response = Response.ok(results).build();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            logger.error("Something went wrong whilst searching food by name", exception);
             response = Response.serverError().build();
         }
         return response;
@@ -171,7 +174,7 @@ public class FoodResource {
             }
             response = Response.ok(results).build();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            logger.error("Something went wrong whilst filtering food by macronutrient", exception);
             response = Response.serverError().build();
         }
         return response;
@@ -195,7 +198,7 @@ public class FoodResource {
             }
             response = Response.ok(results).build();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            logger.error("Something went wrong whilst filtering food by micronutruent", exception);
             response = Response.serverError().build();
         }
         return response;
