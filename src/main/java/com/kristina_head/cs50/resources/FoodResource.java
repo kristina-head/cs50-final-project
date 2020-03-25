@@ -165,6 +165,8 @@ public class FoodResource {
             for (Macronutrients nutrient : macronutrients) {
                 Food food = FoodDAO.fetchById(nutrient.getFoodId());
                 food.setMacronutrients(nutrient);
+                Micronutrients micronutrients = MicronutrientsDAO.fetchByFoodId(food.getId());
+                food.setMicronutrients(micronutrients);
                 results.add(food);
             }
             response = Response.ok(results).build();
@@ -187,6 +189,8 @@ public class FoodResource {
             for (Micronutrients nutrient : micronutrients) {
                 Food food = FoodDAO.fetchById(nutrient.getFoodId());
                 food.setMicronutrients(nutrient);
+                Macronutrients macronutrients = MacronutrientsDAO.fetchByFoodId(food.getId());
+                food.setMacronutrients(macronutrients);
                 results.add(food);
             }
             response = Response.ok(results).build();
