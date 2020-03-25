@@ -1,11 +1,11 @@
-package com.kristina_head.cs50.resources;
+package com.kristina_head.nutrinfo.resources;
 
-import com.kristina_head.cs50.api.Food;
-import com.kristina_head.cs50.api.Macronutrients;
-import com.kristina_head.cs50.api.Micronutrients;
-import com.kristina_head.cs50.db.FoodDAO;
-import com.kristina_head.cs50.db.MacronutrientsDAO;
-import com.kristina_head.cs50.db.MicronutrientsDAO;
+import com.kristina_head.nutrinfo.api.Food;
+import com.kristina_head.nutrinfo.api.Macronutrients;
+import com.kristina_head.nutrinfo.api.Micronutrients;
+import com.kristina_head.nutrinfo.db.FoodDAO;
+import com.kristina_head.nutrinfo.db.MacronutrientsDAO;
+import com.kristina_head.nutrinfo.db.MicronutrientsDAO;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;

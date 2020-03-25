@@ -1,8 +1,8 @@
-package com.kristina_head.cs50;
+package com.kristina_head.nutrinfo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kristina_head.cs50.db.SQLiteConnection;
+import com.kristina_head.nutrinfo.db.SQLiteConnection;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -13,11 +13,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.kristina_head.cs50.ApiKey.API_KEY;
+import static com.kristina_head.nutrinfo.ApiKey.API_KEY;
 
 public class DatabaseSeed {
     public static void main(final String[] args) throws IOException {

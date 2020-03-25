@@ -1,4 +1,4 @@
-package com.kristina_head.cs50.db;
+package com.kristina_head.nutrinfo.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,6 +1,6 @@
 /.idea/
-/cs50-final-project.iml
+*.iml
 /dependency-reduced-pom.xml
 /target/
 /food.db
-/src/main/java/com/kristina_head/cs50/ApiKey.java
+/src/main/java/com/kristina_head/nutrinfo/ApiKey.java

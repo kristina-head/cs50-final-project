@@ -1,6 +1,6 @@
-package com.kristina_head.cs50.db;
+package com.kristina_head.nutrinfo.db;
 
-import com.kristina_head.cs50.api.Macronutrients;
+import com.kristina_head.nutrinfo.api.Macronutrients;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

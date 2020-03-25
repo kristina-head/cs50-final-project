@@ -1,7 +1,7 @@
 logging:
   level: INFO
   loggers:
-    com.kristina-head: DEBUG
+    com.kristina-head: INFO
 
 server:
   rootPath: /api/v1

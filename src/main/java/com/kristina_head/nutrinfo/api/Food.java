@@ -1,4 +1,4 @@
-package com.kristina_head.cs50.api;
+package com.kristina_head.nutrinfo.api;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 

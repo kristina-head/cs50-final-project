@@ -7,17 +7,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.kristina-head</groupId>
-    <artifactId>cs50-final-project</artifactId>
+    <artifactId>nutrinfo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>cs50FinalProject</name>
+    <name>nutrinfo</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>2.0.2</dropwizard.version>
-        <mainClass>com.kristina_head.cs50.cs50FinalProjectApplication</mainClass>
+        <mainClass>com.kristina_head.nutrinfo.NutrinfoApplication</mainClass>
     </properties>
 
     <dependencyManagement>
@@ -68,7 +68,6 @@
                             <mainClass>${mainClass}</mainClass>
                         </transformer>
                     </transformers>
-                    <!-- exclude signed Manifests -->
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
@@ -135,7 +134,6 @@
             </plugin>
         </plugins>
     </build>
-
     <reporting>
         <plugins>
             <plugin>

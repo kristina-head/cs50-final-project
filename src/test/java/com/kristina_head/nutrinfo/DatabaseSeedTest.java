@@ -1,4 +1,4 @@
-package com.kristina_head.cs50;
+package com.kristina_head.nutrinfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;

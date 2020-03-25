@@ -1,6 +1,6 @@
-package com.kristina_head.cs50.db;
+package com.kristina_head.nutrinfo.db;
 
-import com.kristina_head.cs50.api.Food;
+import com.kristina_head.nutrinfo.api.Food;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
