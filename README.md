@@ -13,7 +13,7 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic info about all foods
   ```
-  GET https://www.nutrinfo.com/api/vi/food/all
+  GET /api/v1/food/all
   ```
   ```json
   [
@@ -49,7 +49,7 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic and macronutrient info about all foods  
   ```
-  GET https://www.nutrinfo.com/api/vi/food/all/macronutrients
+  GET /api/v1/food/all/macronutrients
   ```
   ```json
   [
@@ -130,7 +130,7 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic, macronutrient and micronutrient info about all foods
   ```
-  GET https://www.nutrinfo.com/api/vi/food/all/macronutrients/micronutrients
+  GET /api/v1/food/all/macronutrients/micronutrients
   ```
   ```json
   [
@@ -240,8 +240,9 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 ### /{id}
 - Fetch basic info about the food by {id}
   ```
-  GET https://www.nutrinfo.com/api/vi/food/{id}
+  GET /api/v1/food/{id}
   ```
+  For example, when {id} is 13:
   ```json
   {
     "id": 13,
@@ -256,8 +257,9 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic and macronutrient info about the food by {id}
   ```
-  GET https://www.nutrinfo.com/api/vi/food/{id}/macronutrients
+  GET /api/v1/food/{id}/macronutrients
   ```
+  For example, when {id} is 13:
   ```json
   {
     "id": 13,
@@ -287,8 +289,9 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic, macronutrient and micronutrient info about the food by {id}
   ```
-  GET https://www.nutrinfo.com/api/vi/food/{id}/macronutrients/micronutrients
+  GET /api/v1/food/{id}/macronutrients/micronutrients
   ```
+  For example, when {id} is 13:
   ```json
   {
     "id": 13,
@@ -331,8 +334,9 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Return (basic, macronutrient and micronutrient info about) all foods where name is like {name}
   ```
-  GET https://www.nutrinfo.com/api/vi/food/search/name/q={name}
+  GET /api/v1/food/search/name/q={name}
   ```
+  For example, when {name} is berries:
   ```json
   [
     {
@@ -439,8 +443,9 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Filter (basic, macronutrient and micronutrient info about) all foods by {macronutrient} descending
   ```
-  GET https://www.nutrinfo.com/api/vi/food/search/macronutrient/q={macronutrient}
+  GET /api/v1/food/search/macronutrient/q={macronutrient}
   ```
+  For example, when {macronutrient} is fiber:
   ```json
   [
     {
@@ -555,8 +560,9 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Filter (basic, macronutrient and micronutrient info about) all foods by {micronutrient} descending
   ```
-  GET https://www.nutrinfo.com/api/vi/food/search/micronutrient/q={micronutrient}
+  GET /api/v1/food/search/micronutrient/q={micronutrient}
   ```
+  For example, when {micronutrient} is vitamin_c:
   ```json
   [
     {
