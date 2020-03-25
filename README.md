@@ -544,15 +544,14 @@ Responses to /search will be paginated by a default limit of 20 and a default of
     }
   ]
   ```
-
-**Query parameters**
-saturated_fat
-polyunsaturated_fat
-monounsaturated_fat
-cholesterol
-fiber
-sugar
-protein
+  **Query parameters**
+  * saturated_fat
+  * polyunsaturated_fat
+  * monounsaturated_fat
+  * cholesterol
+  * fiber
+  * sugar
+  * protein
 
 - Filter (basic, macronutrient and micronutrient info about) all foods by {micronutrient} descending
   ```
@@ -661,15 +660,14 @@ protein
     }
   ]
   ```
-
-**Query parameters**
-vitamin_a
-vitamin_c
-vitamin_d
-calcium
-iron
-potassium
-sodium
+  **Query parameters**
+  *  vitamin_a
+  *  vitamin_c
+  *  vitamin_d
+  *  calcium
+  *  iron
+  *  potassium
+  *  sodium
 
 
 If something in the API is confusing to you, you can [email](kristina_head@icloud.com) me
