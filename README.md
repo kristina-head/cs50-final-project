@@ -1,5 +1,5 @@
 # Nutrinfo
-Nutrinfo is my final project for Harvard University's CS50: Introduction to Computer Science. It is a REST API that allows applications to retrieve nutritional information about food in the form of a concise JSON response 
+Nutrinfo is my final project for Harvard University's CS50: Introduction to Computer Science. It is a REST API that allows applications to retrieve nutritional information about food in the form of a concise JSON response. I built Nutrinfo using Java, Dropwizard and SQLite
 
 This documentation will help you to understand and utilise the Nutrinfo API
 
