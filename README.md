@@ -334,7 +334,7 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Return (basic, macronutrient and micronutrient info about) all foods where name is like {name}
   ```
-  GET /api/v1/food/search/name/q={name}
+  GET /api/v1/food/search/name?q={name}
   ```
   For example, when {name} is berries:
   ```json
@@ -443,7 +443,7 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Filter (basic, macronutrient and micronutrient info about) all foods by {macronutrient} descending
   ```
-  GET /api/v1/food/search/macronutrient/q={macronutrient}
+  GET /api/v1/food/search/macronutrient?q={macronutrient}
   ```
   For example, when {macronutrient} is fiber:
   ```json
@@ -560,7 +560,7 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Filter (basic, macronutrient and micronutrient info about) all foods by {micronutrient} descending
   ```
-  GET /api/v1/food/search/micronutrient/q={micronutrient}
+  GET /api/v1/food/search/micronutrient?q={micronutrient}
   ```
   For example, when {micronutrient} is vitamin_c:
   ```json
