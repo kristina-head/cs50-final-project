@@ -1,5 +1,5 @@
 # Nutrinfo
-Nutrinfo is my final project for Harvard University's CS50: Introduction to Computer Science. It is a REST API that allows applications to retrieve nutritional information about food in the form of a concise JSON response. I built Nutrinfo using Java, Dropwizard and SQLite
+Nutrinfo is my final project for Harvard University's CS50: Introduction to Computer Science. It is a REST API that allows applications to retrieve nutritional information about food in the form of a concise JSON response. I built Nutrinfo using Java 8, Dropwizard (Maven) and SQLite
 
 This documentation will help you to understand and utilise the Nutrinfo API
 
@@ -676,4 +676,4 @@ Responses to /search will be paginated by a default limit of 20 and a default of
   *  sodium
 
 
-If something in the API is confusing to you, you can [email](mailto:kristina_head@icloud.com) me
+If something in the API is confusing to you, you can [watch the demo](https://youtu.be/ddnz-vurQwk) or [email](mailto:kristina_head@icloud.com) me
