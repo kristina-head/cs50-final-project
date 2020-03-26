@@ -41,13 +41,16 @@ public class MacronutrientsDAO {
         }
     }
 
-    public static Collection<Macronutrients> orderByMacronutrient(String macronutrient) throws SQLException {
+    public static Collection<Macronutrients> orderByMacronutrient(String macronutrient, int limit, int offset) throws SQLException {
         String macronutrientsQuery = "SELECT * FROM macronutrients " +
                                      "WHERE " + macronutrientMap.get(macronutrient) + " > 0 " +
-                                     "ORDER BY " + macronutrientMap.get(macronutrient) + " DESC";
+                                     "ORDER BY " + macronutrientMap.get(macronutrient) + " DESC" +
+                                     "LIMIT ? OFFSET ?";
 
         try (Connection connection = SQLiteConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(macronutrientsQuery)) {
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
 
             Collection<Macronutrients> results = new ArrayList<>();
             try (ResultSet resultSet = statement.executeQuery()) {

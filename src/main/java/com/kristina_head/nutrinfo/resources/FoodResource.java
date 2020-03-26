@@ -163,7 +163,7 @@ public class FoodResource {
                            @DefaultValue("%") @QueryParam("q") String macronutrient) {
         Response response;
         try {
-            Collection<Macronutrients> macronutrients = MacronutrientsDAO.orderByMacronutrient(macronutrient);
+            Collection<Macronutrients> macronutrients = MacronutrientsDAO.orderByMacronutrient(macronutrient, limit, offset);
             Collection<Food> results = new ArrayList<>(macronutrients.size());
             for (Macronutrients nutrient : macronutrients) {
                 Food food = FoodDAO.fetchById(nutrient.getFoodId());
@@ -187,7 +187,7 @@ public class FoodResource {
                            @DefaultValue("%") @QueryParam("q") String micronutrient) {
         Response response;
         try {
-            Collection<Micronutrients> micronutrients = MicronutrientsDAO.orderByMicronutrient(micronutrient);
+            Collection<Micronutrients> micronutrients = MicronutrientsDAO.orderByMicronutrient(micronutrient, limit, offset);
             Collection<Food> results = new ArrayList<>(micronutrients.size());
             for (Micronutrients nutrient : micronutrients) {
                 Food food = FoodDAO.fetchById(nutrient.getFoodId());

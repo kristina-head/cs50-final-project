@@ -40,13 +40,16 @@ public class MicronutrientsDAO {
         }
     }
 
-    public static Collection<Micronutrients> orderByMicronutrient(String micronutrient) throws SQLException {
+    public static Collection<Micronutrients> orderByMicronutrient(String micronutrient, int limit, int offset) throws SQLException {
         String micronutrientsQuery = "SELECT * FROM micronutrients " +
                                      "WHERE " + micronutrientMap.get(micronutrient) + " > 0 " +
-                                     "ORDER BY " + micronutrientMap.get(micronutrient) + " DESC";
+                                     "ORDER BY " + micronutrientMap.get(micronutrient) + " DESC" +
+                                     "LIMIT ? OFFSET ?";
 
         try (Connection connection = SQLiteConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(micronutrientsQuery)) {
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
 
             Collection<Micronutrients> results = new ArrayList<>();
             try (ResultSet resultSet = statement.executeQuery()) {
