@@ -1,5 +1,5 @@
 # Nutrinfo
-Nutrinfo is my final project for Harvard University's CS50: Introduction to Computer Science. It is a REST API that allows applications to retrieve nutritional information about food in the form of a concise JSON response 
+Nutrinfo is my final project for Harvard University's CS50: Introduction to Computer Science. It is a REST API that allows applications to retrieve nutritional information about food in the form of a concise JSON response. I built Nutrinfo using Java, Dropwizard and SQLite
 
 This documentation will help you to understand and utilise the Nutrinfo API
 
@@ -13,7 +13,7 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic info about all foods
   ```
-  GET https://www.nutrinfo.com/api/vi/food/all
+  GET /api/v1/food/all?limit=3&offset=0
   ```
   ```json
   [
@@ -49,7 +49,7 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic and macronutrient info about all foods  
   ```
-  GET https://www.nutrinfo.com/api/vi/food/all/macronutrients
+  GET /api/v1/food/all/macronutrients?limit=3&offset=0
   ```
   ```json
   [
@@ -130,7 +130,7 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic, macronutrient and micronutrient info about all foods
   ```
-  GET https://www.nutrinfo.com/api/vi/food/all/macronutrients/micronutrients
+  GET /api/v1/food/all/macronutrients/micronutrients?limit=3&offset=0
   ```
   ```json
   [
@@ -240,8 +240,9 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 ### /{id}
 - Fetch basic info about the food by {id}
   ```
-  GET https://www.nutrinfo.com/api/vi/food/{id}
+  GET /api/v1/food/{id}
   ```
+  For example, when {id} is 13:
   ```json
   {
     "id": 13,
@@ -256,8 +257,9 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic and macronutrient info about the food by {id}
   ```
-  GET https://www.nutrinfo.com/api/vi/food/{id}/macronutrients
+  GET /api/v1/food/{id}/macronutrients
   ```
+  For example, when {id} is 13:
   ```json
   {
     "id": 13,
@@ -287,8 +289,9 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic, macronutrient and micronutrient info about the food by {id}
   ```
-  GET https://www.nutrinfo.com/api/vi/food/{id}/macronutrients/micronutrients
+  GET /api/v1/food/{id}/macronutrients/micronutrients
   ```
+  For example, when {id} is 13:
   ```json
   {
     "id": 13,
@@ -331,8 +334,9 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Return (basic, macronutrient and micronutrient info about) all foods where name is like {name}
   ```
-  GET https://www.nutrinfo.com/api/vi/food/search/name/q={name}
+  GET /api/v1/food/search/name?q={name}&limit=3&offset=0
   ```
+  For example, when {name} is berries:
   ```json
   [
     {
@@ -439,8 +443,9 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Filter (basic, macronutrient and micronutrient info about) all foods by {macronutrient} descending
   ```
-  GET https://www.nutrinfo.com/api/vi/food/search/macronutrient/q={macronutrient}
+  GET /api/v1/food/search/macronutrient?q={macronutrient}&limit=3&offset=0
   ```
+  For example, when {macronutrient} is fiber:
   ```json
   [
     {
@@ -544,20 +549,20 @@ Responses to /search will be paginated by a default limit of 20 and a default of
     }
   ]
   ```
-
-**Query parameters**
-saturated_fat
-polyunsaturated_fat
-monounsaturated_fat
-cholesterol
-fiber
-sugar
-protein
+  **Query parameters**
+  * saturated_fat
+  * polyunsaturated_fat
+  * monounsaturated_fat
+  * cholesterol
+  * fiber
+  * sugar
+  * protein
 
 - Filter (basic, macronutrient and micronutrient info about) all foods by {micronutrient} descending
   ```
-  GET https://www.nutrinfo.com/api/vi/food/search/micronutrient/q={micronutrient}
+  GET /api/v1/food/search/micronutrient?q={micronutrient}&limit=3&offset=1
   ```
+  For example, when {micronutrient} is vitamin_c:
   ```json
   [
     {
@@ -661,15 +666,14 @@ protein
     }
   ]
   ```
+  **Query parameters**
+  *  vitamin_a
+  *  vitamin_c
+  *  vitamin_d
+  *  calcium
+  *  iron
+  *  potassium
+  *  sodium
 
-**Query parameters**
-vitamin_a
-vitamin_c
-vitamin_d
-calcium
-iron
-potassium
-sodium
 
-
-If something in the API is confusing to you, you can [email](kristina_head@icloud.com) me
+If something in the API is confusing to you, you can [email](mailto:kristina_head@icloud.com) me
