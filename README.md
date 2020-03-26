@@ -13,7 +13,7 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic info about all foods
   ```
-  GET /api/v1/food/all
+  GET /api/v1/food/all?limit=3&offset=0
   ```
   ```json
   [
@@ -49,7 +49,7 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic and macronutrient info about all foods  
   ```
-  GET /api/v1/food/all/macronutrients
+  GET /api/v1/food/all/macronutrients?limit=3&offset=0
   ```
   ```json
   [
@@ -130,7 +130,7 @@ Responses to /all will be paginated by a default limit of 20 and a default offse
 
 - Fetch basic, macronutrient and micronutrient info about all foods
   ```
-  GET /api/v1/food/all/macronutrients/micronutrients
+  GET /api/v1/food/all/macronutrients/micronutrients?limit=3&offset=0
   ```
   ```json
   [
@@ -334,7 +334,7 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Return (basic, macronutrient and micronutrient info about) all foods where name is like {name}
   ```
-  GET /api/v1/food/search/name?q={name}
+  GET /api/v1/food/search/name?q={name}&limit=3&offset=0
   ```
   For example, when {name} is berries:
   ```json
@@ -443,7 +443,7 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Filter (basic, macronutrient and micronutrient info about) all foods by {macronutrient} descending
   ```
-  GET /api/v1/food/search/macronutrient?q={macronutrient}
+  GET /api/v1/food/search/macronutrient?q={macronutrient}&limit=3&offset=0
   ```
   For example, when {macronutrient} is fiber:
   ```json
@@ -560,7 +560,7 @@ Responses to /search will be paginated by a default limit of 20 and a default of
 
 - Filter (basic, macronutrient and micronutrient info about) all foods by {micronutrient} descending
   ```
-  GET /api/v1/food/search/micronutrient?q={micronutrient}
+  GET /api/v1/food/search/micronutrient?q={micronutrient}&limit=3&offset=1
   ```
   For example, when {micronutrient} is vitamin_c:
   ```json
