@@ -44,7 +44,7 @@ public class MacronutrientsDAO {
     public static Collection<Macronutrients> orderByMacronutrient(String macronutrient, int limit, int offset) throws SQLException {
         String macronutrientsQuery = "SELECT * FROM macronutrients " +
                                      "WHERE " + macronutrientMap.get(macronutrient) + " > 0 " +
-                                     "ORDER BY " + macronutrientMap.get(macronutrient) + " DESC" +
+                                     "ORDER BY " + macronutrientMap.get(macronutrient) + " DESC " +
                                      "LIMIT ? OFFSET ?";
 
         try (Connection connection = SQLiteConnection.getConnection();
